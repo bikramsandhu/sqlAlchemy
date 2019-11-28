@@ -1,19 +1,28 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Session
 from sqlalchemy.orm import sessionmaker
 from pprint import pprint
 
 # Create an engine that stores data in the local directory's
 # sqlalchemy_example.db file.
 engine = create_engine('sqlite:////web/Sqlite-Data/example.db')
-
+Session = sessionmaker(bind=engine)
+session = Session()
 # this loads the sqlalchemy base class
 Base = declarative_base()
 
-
 # Setting up the classes that create the record objects and define the schema
+
+class Customer(Base):
+    __tablename__ = 'Customer'
+    first_name = Column(String(250), nullable=False)
+    last_name = Column(String(250), nullable=False)
+    username = Column(String(250), nullable=False)
+    email = Column(String(250))
+    address = Column(String(250))
+    town = Column(String(250))
 
 class Person(Base):
     __tablename__ = 'person'
@@ -36,6 +45,51 @@ class Address(Base):
     # creates the relationship between the person and addresses.  backref adds a property to the Person class to retrieve addresses
     person = relationship("Person", backref="addresses")
 
+c1 = Customer(first_name = 'Toby',
+              last_name = 'Miller',
+              username = 'tmiller',
+              email = 'tmiller@example.com',
+              address = '1662 Kinney Street',
+              town = 'Wolfden'
+              )
+c2 = Customer(first_name = 'Scott',
+              last_name = 'Harvey',
+              username = 'scottharvey',
+              email = 'scottharvey@example.com',
+              address = '424 Patterson Street',
+              town = 'Beckinsdale'
+              )
+c3 = Customer(first_name="John",
+              last_name="Lara",
+              username="johnlara",
+              email="johnlara@mail.com",
+              address="3073 Derek Drive",
+              town="Norfolk"
+              )
+c4 = Customer(first_name="Sarah",
+              last_name="Tomlin",
+              username="sarahtomlin",
+              email="sarahtomlin@mail.com",
+              address="3572 Poplar Avenue",
+              town="Norfolk"
+              )
+c5 = Customer(first_name='Toby',
+              last_name='Miller',
+              username='tmiller',
+              email='tmiller@example.com',
+              address='1662 Kinney Street',
+              town='Wolfden'
+              )
+c6 = Customer(first_name='Scott',
+              last_name='Harvey',
+              username='scottharvey',
+              email='scottharvey@example.com',
+              address='424 Patterson Street',
+              town='Beckinsdale'
+              )
+
+session.add_all([c1, c2, c3, c4, c5, c6])
+session.commit()
 
 # Create all tables in the engine. This is equivalent to "Create Table"
 # statements in raw SQL.

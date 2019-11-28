@@ -16,6 +16,13 @@ c.execute('''
           ''')
 
 c.execute('''
+        CREATE TABLE customer
+        (first_name varchar(250) NOT NULL, last_name varchar(250) NOT NULL, username varchar(250) NOT NULL,
+        email varchar(250), address varchar(250), town varchar(250))
+''')
+
+
+c.execute('''
           INSERT INTO person VALUES(1, 'pythoncentral')
           ''')
 c.execute('''
