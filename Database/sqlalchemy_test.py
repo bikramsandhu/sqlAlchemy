@@ -16,13 +16,20 @@ Base = declarative_base()
 # Setting up the classes that create the record objects and define the schema
 
 class Customer(Base):
-    __tablename__ = 'Customer'
+    __tablename__ = 'customer'
     first_name = Column(String(250), nullable=False)
     last_name = Column(String(250), nullable=False)
     username = Column(String(250), nullable=False)
     email = Column(String(250))
     address = Column(String(250))
     town = Column(String(250))
+
+class Item(Base):
+    __tablename__ = 'items'
+    name = Column(String(250))
+    cost_price = Column(Integer)
+    selling_price = Column(Integer)
+    quantity = Column(Integer)
 
 class Person(Base):
     __tablename__ = 'person'

@@ -21,6 +21,11 @@ c.execute('''
         email varchar(250), address varchar(250), town varchar(250))
 ''')
 
+c.execute('''
+        CREATE TABLE items
+        (name varchar(250), cost_price INTEGER, selling_price INTEGER, quantity INTEGER)
+''')
+
 
 c.execute('''
           INSERT INTO person VALUES(1, 'pythoncentral')
